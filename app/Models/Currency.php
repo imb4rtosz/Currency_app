@@ -11,4 +11,5 @@ class Currency extends Model
     use Uuids;
     use HasFactory;
     public $timestamps = false;    // don't add updated_at / created_at
+    protected $fillable = ['name','currency_code', 'exchange_rate']; // allow Mass Assignment
 }

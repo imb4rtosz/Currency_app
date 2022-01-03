@@ -10,7 +10,7 @@ class CurrencyController extends Controller
 {
     public function getRates()
    {
-     Currency::truncate(); 
+      
 
     $response = Http::get('http://api.nbp.pl/api/exchangerates/tables/A/?format=json'); 
     
@@ -19,13 +19,14 @@ class CurrencyController extends Controller
   
     foreach($data as $elm){
         foreach($elm['rates'] as $rate){    // 2 foreach loops (access inner array)
-        $currency = new Currency;
+
+        $currency = Currency::updateOrCreate(  //if exist update else create
         
-        $currency->name = $rate['currency'];
-        $currency->currency_code = $rate['code'];
-        $currency->exchange_rate = $rate['mid'];
-     
-         $currency->save();
+          ['name' => $rate['currency']],
+          ['currency_code' => $rate['code'],
+          'exchange_rate' => $rate['mid']]
+        );
+        //  $currency->save();
         }
 }
      return "Dane o aktualnych kursach walut zostały dodane do Bazy Danych.";

@@ -10,4 +10,5 @@ class Currency extends Model
 {   
     use Uuids;
     use HasFactory;
+    public $timestamps = false;    // don't add updated_at / created_at
 }

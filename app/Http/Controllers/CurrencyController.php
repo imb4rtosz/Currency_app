@@ -10,7 +10,7 @@ class CurrencyController extends Controller
 {
     public function getRates()
    {
-    
+     Currency::truncate(); 
 
     $response = Http::get('http://api.nbp.pl/api/exchangerates/tables/A/?format=json'); 
     
@@ -28,6 +28,6 @@ class CurrencyController extends Controller
          $currency->save();
         }
 }
-
+     return "Dane o aktualnych kursach walut zostały dodane do Bazy Danych.";
    }
 }
